@@ -1,0 +1,163 @@
+<form  [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+    <div *ngIf="invalidForm" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input formControlName="first_name"  
+              type="text" 
+              class="form-control" 
+              id="first_name">
+        <div class="alert alert-danger" *ngIf="first_name?.touched && !first_name?.valid">
+            <div *ngIf="first_name?.errors?.required">First Name is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input formControlName="last_name"  
+              type="text" 
+              class="form-control" 
+              id="last_name">
+        <div class="alert alert-danger" *ngIf="last_name?.touched && !last_name?.valid">
+            <div *ngIf="last_name?.errors?.required">Last Name is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Location</label>
+        <input formControlName="address"  
+              type="text" 
+              class="form-control" 
+              id="address">
+        <div class="alert alert-danger" *ngIf="address?.touched && !address?.valid">
+            <div *ngIf="address?.errors?.required">Location is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="country_id">Country</label>
+        <select class="form-control" formControlName="country_id" id="country_id">
+            <option *ngFor="let oCountry of countryLst" [value]="oCountry.country_id"> {{ oCountry.country }}</option>
+         </select>
+         <div class="alert alert-danger" *ngIf="country_id?.touched && !country_id?.valid">
+            <div *ngIf="country_id?.errors?.required">Please select country</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="profession_statement">Profession Statement</label>
+        <input formControlName="profession_statement"  
+              type="text" 
+              class="form-control" 
+              id="profession_statement">
+        <div class="alert alert-danger" *ngIf="profession_statement?.touched && !profession_statement?.valid">
+            <div *ngIf="profession_statement?.errors?.required">Profession statement is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="file">Upload Related Document</label>
+        <div>
+        <input type="file"
+               id="file"
+               (change)="handleFileInput($event)">
+        </div>
+         
+        <div class="alert alert-danger" *ngIf="uploader_field?.touched && !uploader_field?.valid">
+            <div *ngIf="uploader_field?.errors?.required">Please upload related document</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="practicing_from">Practicing from</label>
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="practicing_from"
+          formControlName="practicing_from" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="practicing_from?.touched && !practicing_from?.valid">
+            <div *ngIf="practicing_from?.errors?.required">Practing from is required</div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="consultation_fee">Consultation fee</label>
+        <input formControlName="consultation_fee"  
+              type="text" 
+              class="form-control" 
+              id="consultation_fee">
+        <div class="alert alert-danger" *ngIf="consultation_fee?.touched && !consultation_fee?.valid">
+            <div *ngIf="consultation_fee?.errors?.required">Consultation fee is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="time_slot_per_patient_in_min">Time slot per patient(in min)</label>
+        <input formControlName="time_slot_per_patient_in_min"  
+              type="text" 
+              class="form-control" 
+              id="time_slot_per_patient_in_min">
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input formControlName="email"  
+              type="email" 
+              class="form-control" 
+              id="email">
+        <div *ngIf="email?.pending">Checking for unique...</div>
+        <div class="alert alert-danger" *ngIf="email?.touched && !email?.valid">
+            <div *ngIf="email?.errors?.required">Email is required</div>
+            <div *ngIf="email?.errors?.email">Email is valid</div>
+            <div *ngIf="email?.errors?.emailExist">Email is already taken</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"  
+              type="text" 
+              class="form-control" 
+              id="phone">
+        <div *ngIf="phone?.pending">Checking for unique...</div>
+        <div class="alert alert-danger" *ngIf="phone?.touched && !phone?.valid">
+            <div *ngIf="phone?.errors?.required">Phone is required</div>
+            <div *ngIf="phone?.errors?.minlength">Phone should be at least 10 character</div>
+            <div *ngIf="phone?.errors?.phoneExist">Phone is already taken</div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="password">Create Password</label>
+        <input formControlName="password"  
+              type="password" 
+              class="form-control" 
+              id="password">
+        <div class="alert alert-danger" *ngIf="password?.touched && !password?.valid">
+            <div *ngIf="password?.errors?.required">Password is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input formControlName="confirmPassword"  
+              type="password" 
+              class="form-control" 
+              id="confirmPassword">
+        <div class="alert alert-danger" *ngIf="confirmPassword?.touched && !confirmPassword?.valid">
+            <div *ngIf="confirmPassword?.errors?.required">Confirm password is required</div>
+            <div *ngIf="confirmPassword?.errors?.confirmedValidator">Passwords don't match.</div>
+        </div>
+    </div>
+
+    <div class="form-group form-check">
+        <input formControlName="will_receive_news" type="checkbox" class="form-check-input" id="will_receive_news">
+        <label class="form-check-label" for="will_receive_news">Receive relevant offers and promotional ommunication from Care~O~Cure</label>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
+  </form>

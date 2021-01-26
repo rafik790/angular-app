@@ -1,0 +1,21 @@
+<h1>{{ authors.length }} Author(s)</h1>
+<ul>
+    <li *ngFor="let author of authors" (click)="onLiClick($event)">
+        {{ author }} <input #authorname type="text" (keyup.enter)="onKeyEvent(authorname.value)"/>
+    </li>
+</ul>
+<div>
+    <input type="text" [(ngModel)]="email" (keyup.enter)="onKeyUpOnEmailBox()"/>
+</div>
+<div class="row">
+    <div class="col col-lg-2">
+        <img [src]="imageUrl1" (click)="onClickImage()"/>
+    </div>
+    <div class="col-md-auto">
+        <img [src]="imageUrl2" (click)="onClickImage()"/>
+    </div>
+    <div class="col col-lg-2">
+        <img [src]="imageUrl3" (click)="onClickImage()"/>
+    </div>
+</div>
+

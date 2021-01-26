@@ -1,0 +1,34 @@
+<form [formGroup]="form">
+    <div class="form-group">
+        <label for="name">Product Name:</label>
+        <input type="text" class="form-control" formontrolName="name" id="name"/>
+    </div>
+
+    <div class="form-group">
+        <label for="topics">Course Topics:</label>
+        <input type="text" class="form-control" (keyup.enter)="addTopic(topic)" #topic id="topics"/>
+    </div>
+   
+    
+    <div formGroupName="contact">
+        <div>Contact</div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" formontrolName="email" id="email"/>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Email:</label>
+            <input type="text" class="form-control" formontrolName="phone" id="phone"/>
+        </div>
+        
+    </div>
+    <ul class="list-group">
+        <li 
+            *ngFor="let topic of topics.controls"
+            (click)="removeTopic()"
+            class="list-group-item" >
+            {{ topic.value }}
+        </li>
+    </ul>
+</form>

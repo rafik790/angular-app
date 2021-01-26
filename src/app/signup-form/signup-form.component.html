@@ -1,0 +1,38 @@
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="login()">
+    <div *ngIf="form.errors" class="alert alert-danger">
+      Username or Password is wrong.
+    </div>
+    <div formGroupName="account">
+      <div class="form-group">
+        <label for="username">Email address</label>
+        <input formControlName="username"  
+              type="text" 
+              class="form-control" 
+              id="username" 
+              placeholder="Enter email">
+        <div *ngIf="username?.pending">Checking for unique...</div>
+        <div class="alert alert-danger" *ngIf="username?.touched && !username?.valid">
+            <div *ngIf="username?.errors?.required">Username is required</div>
+            <div *ngIf="username?.errors?.cannotContainSpace">Username can't contain space</div>
+            <div *ngIf="username?.errors?.shouldBeUnique">Username is already taken</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input formControlName="password"  
+                  type="password" 
+                  class="form-control" 
+                  id="password" 
+                  placeholder="Password">
+        <div class="alert alert-danger" *ngIf="password?.touched && !password?.valid">
+            Password is required
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group form-check">
+      <input formControlName="checkMeOut" type="checkbox" class="form-check-input" id="checkMeOut">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Signup</button>
+</form>
